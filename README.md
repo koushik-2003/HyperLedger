@@ -208,7 +208,7 @@ A list of assets in the ledger.
 
 **Example**:
 ```bash
-GET http://localhost:3000/asset/asset1
+GET http://localhost:3000/adluru/shiva
 ```
 
 ---
