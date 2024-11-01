@@ -14,28 +14,51 @@ This guide will help you set up and run your Hyperledger Fabric network, deploy 
 
 ## **Steps to Install and Setup the Network**
 
+# **Hyperledger Fabric Project**
+
+This guide will help you set up and run your Hyperledger Fabric network, deploy the asset transfer chaincode, and use a Node.js application to interact with the blockchain via RESTful APIs.
+
+---
+
+## **Steps to Install and Setup the Network**
+
 ### **1. Navigate to Your Project Directory**
+```bash
 cd HyperLedger_Fabric_Project/HyperLedger_fabric
+```
 
 ### **2. Install Hyperledger Fabric**
+```bash
 curl -sSL https://bit.ly/2ysbOFE | bash -s -- 2.5.0
+```
 
 ### **3. Go to the Fabric Test Network Directory**
+```bash
 cd fabric-samples/test-network
+```
 
 ### **4. Grant Execute Permissions**: To make the script executable, use the following command:
+```bash
 chmod +x network.sh
+```
 
 ### **5. Stop Any Existing Network**
+```bash
 ./network.sh down
+```
 
 ### **6. Start the Network with CA Enabled and Create a Channel**
+```bash
 sudo ./network.sh up createChannel -ca -c mychannel
+```
 
 ### **7. Deploy the Chaincode**
+```bash
 ./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript -ccl javascript
+```
 
 ### **8. Set Environment Variables for the Peer**
+```bash
 export PATH=${PWD}/../bin:$PATH
 export FABRIC_CFG_PATH=$PWD/../config/
 export CORE_PEER_TLS_ENABLED=true
@@ -43,14 +66,11 @@ export CORE_PEER_LOCALMSPID="Org1MSP"
 export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
 export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 export CORE_PEER_ADDRESS=localhost:7051
+```
 
-### 9. Invoke the Chaincode
-
+### **9. Invoke the Chaincode**
 ```bash
-peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" \
-  -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" \
-  --peerAddresses localhost:9051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" \
-  -c '{"function":"InitLedger","Args":[]}'
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" --peerAddresses localhost:9051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" -c '{"function":"InitLedger","Args":[]}'
 ```
 
 ---
