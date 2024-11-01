@@ -9,7 +9,7 @@ This guide will help you set up and run your Hyperledger Fabric network, deploy 
 ### 1. Navigate to Your Project Directory
 
 ```bash
-cd Hyperfiber-intial-edit
+cd HyperLedger_Fabric_Project/HyperLedger_fabric
 ```
 
 ### 2. Install Hyperledger Fabric
@@ -99,7 +99,7 @@ Once the server is running locally, you can access the API endpoints using the f
 
 **Example**:
 ```bash
-POST http://localhost:3000/ledger/init
+POST http://localhost:3000/ledger
 ```
 
 **Response**:
@@ -113,11 +113,11 @@ POST http://localhost:3000/ledger/init
 
 ### 2. Get All Assets
 
-**Endpoint**: `GET /assets`
+**Endpoint**: `GET /getassets`
 
 **Example**:
 ```bash
-GET http://localhost:3000/assets
+GET http://localhost:3000/getassets
 ```
 
 **Response**:  
@@ -127,27 +127,27 @@ A list of assets in the ledger.
 
 ### 3. Create Asset (Example for Dealer 3)
 
-**Endpoint**: `POST /asset`
+**Endpoint**: `POST /createasset`
 
 **Example**:
 ```json
 {
-  "id": "asset3",
-  "dealerId": "dealer3",
-  "msisdn": "1122334455",
-  "mpin": "91011",
-  "balance": 500,
-  "status": "active",
-  "transAmount": 0,
-  "transType": "",
-  "remarks": ""
+  "ID": "adluru",
+  "DEALERID": "koushik",
+  "MSISDN": "741",
+  "MPIN": "2001",
+  "BALANCE": 300,
+  "STATUS": "active",
+  "TRANSAMOUNT": 0,
+  "TRANSTYPE": "",
+  "REMARKS": ""
 }
 ```
 
 **Response**:
 ```json
 {
-  "message": "Asset asset3 created successfully"
+  "message": "Asset adluru created successfully"
 }
 ```
 
@@ -155,27 +155,27 @@ A list of assets in the ledger.
 
 ### 4. Update Asset
 
-**Endpoint**: `PUT /asset`
+**Endpoint**: `PUT /updateasset`
 
 **Example**:
 ```json
 {
-  "id": "asset1",
-  "dealerId": "dealer1",
-  "msisdn": "1234567890",
-  "mpin": "1234",
-  "balance": 350,
+  "id": "shiva",
+  "dealerId": "sale",
+  "msisdn": "258",
+  "mpin": "123",
+  "balance": 3625,
   "status": "active",
-  "transAmount": 50,
-  "transType": "credit",
-  "remarks": "Updated balance"
+  "transAmount": 60,
+  "transType": "debit",
+  "remarks": "update balance"
 }
 ```
 
 **Response**:
 ```json
 {
-  "message": "Asset asset1 updated successfully"
+  "message": "Asset shiva updated successfully"
 }
 ```
 
@@ -188,15 +188,15 @@ A list of assets in the ledger.
 **Example**:
 ```json
 {
-  "id": "asset2",
-  "newOwner": "dealer3"
+  "id": "shiva",
+  "newOwner": "malli"
 }
 ```
 
 **Response**:
 ```json
 {
-  "message": "Successfully transferred asset asset2 from dealer2 to dealer3"
+  "message": "Successfully transferred asset shiva from sale to malli"
 }
 ```
 
@@ -204,7 +204,7 @@ A list of assets in the ledger.
 
 ### 6. Read Asset
 
-**Endpoint**: `GET /asset/:id`
+**Endpoint**: `GET /getasset/:id`
 
 **Example**:
 ```bash
@@ -215,11 +215,11 @@ GET http://localhost:3000/asset/asset1
 
 ### 7. Get Asset Transaction History
 
-**Endpoint**: `GET /asset/:id/history`
+**Endpoint**: `GET /get/:id/history`
 
 **Example**:
 ```bash
-GET http://localhost:3000/asset/asset1/history
+GET http://localhost:3000/adluru/shiva/history
 ```
 
 ---
