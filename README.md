@@ -6,45 +6,36 @@ This guide will help you set up and run your Hyperledger Fabric network, deploy 
 
 ## Steps to Install and Setup the Network
 
-### 1. Navigate to Your Project Directory
+# **Hyperledger Fabric Project**
 
-```bash
+This guide will help you set up and run your Hyperledger Fabric network, deploy the asset transfer chaincode, and use a Node.js application to interact with the blockchain via RESTful APIs.
+
+---
+
+## **Steps to Install and Setup the Network**
+
+### **1. Navigate to Your Project Directory**
 cd HyperLedger_Fabric_Project/HyperLedger_fabric
-```
 
-### 2. Install Hyperledger Fabric
-
-```bash
+### **2. Install Hyperledger Fabric**
 curl -sSL https://bit.ly/2ysbOFE | bash -s -- 2.5.0
-```
 
-### 3. Go to the Fabric Test Network Directory
-
-```bash
+### **3. Go to the Fabric Test Network Directory**
 cd fabric-samples/test-network
-```
 
-### 4. Stop Any Existing Network
+### **4. Grant Execute Permissions**: To make the script executable, use the following command:
+chmod +x network.sh
 
-```bash
+### **5. Stop Any Existing Network**
 ./network.sh down
-```
 
-### 5. Start the Network with CA Enabled and Create a Channel
-
-```bash
+### **6. Start the Network with CA Enabled and Create a Channel**
 sudo ./network.sh up createChannel -ca -c mychannel
-```
 
-### 6. Deploy the Chaincode
-
-```bash
+### **7. Deploy the Chaincode**
 ./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript -ccl javascript
-```
 
-### 7. Set Environment Variables for the Peer
-
-```bash
+### **8. Set Environment Variables for the Peer**
 export PATH=${PWD}/../bin:$PATH
 export FABRIC_CFG_PATH=$PWD/../config/
 export CORE_PEER_TLS_ENABLED=true
@@ -52,9 +43,8 @@ export CORE_PEER_LOCALMSPID="Org1MSP"
 export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
 export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 export CORE_PEER_ADDRESS=localhost:7051
-```
 
-### 8. Invoke the Chaincode
+### 9. Invoke the Chaincode
 
 ```bash
 peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" \
