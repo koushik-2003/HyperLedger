@@ -14,11 +14,13 @@
  
 	 "github.com/hyperledger/fabric-contract-api-go/contractapi"
  )
+ 
 
  type AssetTransfer struct {
 	 contractapi.Contract
  }
-
+ 
+ 
  type Asset struct {
 	 ID         string  `json:"ID"`
 	 DealerID   string  `json:"DEALERID"`
@@ -30,6 +32,7 @@
 	 TransType  string  `json:"TRANSTYPE"`
 	 Remarks    string  `json:"REMARKS"`
  }
+ 
  
  func (s *AssetTransfer) InitLedger(ctx contractapi.TransactionContextInterface) error {
 	 assets := []Asset{
@@ -50,6 +53,7 @@
  
 	 return nil
  }
+ 
  
  func (s *AssetTransfer) CreateAsset(ctx contractapi.TransactionContextInterface, id, dealerId, msisdn, mpin string, balance float64, status string, transAmount float64, transType, remarks string) error {
 	 exists, err := s.AssetExists(ctx, id)
@@ -79,7 +83,8 @@
  
 	 return ctx.GetStub().PutState(id, assetJSON)
  }
-
+ 
+ 
  func (s *AssetTransfer) ReadAsset(ctx contractapi.TransactionContextInterface, id string) (*Asset, error) {
 	 assetJSON, err := ctx.GetStub().GetState(id)
 	 if err != nil {
@@ -97,7 +102,8 @@
  
 	 return &asset, nil
  }
-
+ 
+ 
  func (s *AssetTransfer) UpdateAsset(ctx contractapi.TransactionContextInterface, id, dealerId, msisdn, mpin string, balance float64, status string, transAmount float64, transType, remarks string) error {
 	 exists, err := s.AssetExists(ctx, id)
 	 if err != nil {
@@ -127,6 +133,7 @@
 	 return ctx.GetStub().PutState(id, assetJSON)
  }
  
+ 
  func (s *AssetTransfer) DeleteAsset(ctx contractapi.TransactionContextInterface, id string) error {
 	 exists, err := s.AssetExists(ctx, id)
 	 if err != nil {
@@ -139,6 +146,7 @@
 	 return ctx.GetStub().DelState(id)
  }
  
+ 
  func (s *AssetTransfer) AssetExists(ctx contractapi.TransactionContextInterface, id string) (bool, error) {
 	 assetJSON, err := ctx.GetStub().GetState(id)
 	 if err != nil {
@@ -147,6 +155,7 @@
  
 	 return assetJSON != nil, nil
  }
+ 
  
  func (s *AssetTransfer) TransferAsset(ctx contractapi.TransactionContextInterface, id, newOwner string) (string, error) {
 	 asset, err := s.ReadAsset(ctx, id)
@@ -169,6 +178,7 @@
  
 	 return oldOwner, nil
  }
+ 
 
  func (s *AssetTransfer) GetAllAssets(ctx contractapi.TransactionContextInterface) ([]*Asset, error) {
 	 resultsIterator, err := ctx.GetStub().GetStateByRange("", "")
@@ -195,6 +205,7 @@
 	 return assets, nil
  }
  
+
  func (s *AssetTransfer) GetAssetTransactionHistory(ctx contractapi.TransactionContextInterface, id string) ([]map[string]interface{}, error) {
 	 resultsIterator, err := ctx.GetStub().GetHistoryForKey(id)
 	 if err != nil {
