@@ -54,7 +54,7 @@ sudo ./network.sh up createChannel -ca -c mychannel
 
 ### **7. Deploy the Chaincode**
 ```bash
-./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript -ccl javascript
+./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go -ccl go
 ```
 
 ### **8. Set Environment Variables for the Peer**
