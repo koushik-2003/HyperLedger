@@ -15,12 +15,12 @@
 	 "github.com/hyperledger/fabric-contract-api-go/contractapi"
  )
  
- // AssetTransfer contract for managing assets
+
  type AssetTransfer struct {
 	 contractapi.Contract
  }
  
- // Asset represents the structure for an asset
+ 
  type Asset struct {
 	 ID         string  `json:"ID"`
 	 DealerID   string  `json:"DEALERID"`
@@ -33,7 +33,7 @@
 	 Remarks    string  `json:"REMARKS"`
  }
  
- // InitLedger initializes the ledger with some default assets
+ 
  func (s *AssetTransfer) InitLedger(ctx contractapi.TransactionContextInterface) error {
 	 assets := []Asset{
 		 {ID: "adluru", DealerID: "koushik", MSISDN: "741", MPIN: "2001", Balance: 300, Status: "active", TransAmount: 0, TransType: "", Remarks: ""},
@@ -54,7 +54,7 @@
 	 return nil
  }
  
- // CreateAsset creates a new asset and adds it to the world state
+ 
  func (s *AssetTransfer) CreateAsset(ctx contractapi.TransactionContextInterface, id, dealerId, msisdn, mpin string, balance float64, status string, transAmount float64, transType, remarks string) error {
 	 exists, err := s.AssetExists(ctx, id)
 	 if err != nil {
@@ -84,7 +84,7 @@
 	 return ctx.GetStub().PutState(id, assetJSON)
  }
  
- // ReadAsset retrieves an asset from the world state
+ 
  func (s *AssetTransfer) ReadAsset(ctx contractapi.TransactionContextInterface, id string) (*Asset, error) {
 	 assetJSON, err := ctx.GetStub().GetState(id)
 	 if err != nil {
@@ -103,7 +103,7 @@
 	 return &asset, nil
  }
  
- // UpdateAsset updates an existing asset in the world state
+ 
  func (s *AssetTransfer) UpdateAsset(ctx contractapi.TransactionContextInterface, id, dealerId, msisdn, mpin string, balance float64, status string, transAmount float64, transType, remarks string) error {
 	 exists, err := s.AssetExists(ctx, id)
 	 if err != nil {
@@ -133,7 +133,7 @@
 	 return ctx.GetStub().PutState(id, assetJSON)
  }
  
- // DeleteAsset removes an asset from the world state
+ 
  func (s *AssetTransfer) DeleteAsset(ctx contractapi.TransactionContextInterface, id string) error {
 	 exists, err := s.AssetExists(ctx, id)
 	 if err != nil {
@@ -146,7 +146,7 @@
 	 return ctx.GetStub().DelState(id)
  }
  
- // AssetExists checks if an asset exists in the world state
+ 
  func (s *AssetTransfer) AssetExists(ctx contractapi.TransactionContextInterface, id string) (bool, error) {
 	 assetJSON, err := ctx.GetStub().GetState(id)
 	 if err != nil {
@@ -156,7 +156,7 @@
 	 return assetJSON != nil, nil
  }
  
- // TransferAsset transfers ownership of an asset from one dealer to another
+ 
  func (s *AssetTransfer) TransferAsset(ctx contractapi.TransactionContextInterface, id, newOwner string) (string, error) {
 	 asset, err := s.ReadAsset(ctx, id)
 	 if err != nil {
@@ -179,7 +179,7 @@
 	 return oldOwner, nil
  }
  
- // GetAllAssets retrieves all assets from the world state
+
  func (s *AssetTransfer) GetAllAssets(ctx contractapi.TransactionContextInterface) ([]*Asset, error) {
 	 resultsIterator, err := ctx.GetStub().GetStateByRange("", "")
 	 if err != nil {
@@ -205,7 +205,7 @@
 	 return assets, nil
  }
  
- // GetAssetTransactionHistory retrieves the transaction history for a specific asset
+
  func (s *AssetTransfer) GetAssetTransactionHistory(ctx contractapi.TransactionContextInterface, id string) ([]map[string]interface{}, error) {
 	 resultsIterator, err := ctx.GetStub().GetHistoryForKey(id)
 	 if err != nil {
